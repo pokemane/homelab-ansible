@@ -1,0 +1,17 @@
+---
+- hosts: all
+  vars:
+    ansible_pkg_mgr: apt
+  tasks:
+  - name: install QoL packages
+    action: >
+      {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+    with_items:
+      - vim
+      - tmux
+      - screen
+      - curl
+  - name: set locale for tmux
+    locale_gen:
+      name: en_US.UTF-8
+      state: present
